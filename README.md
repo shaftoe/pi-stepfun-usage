@@ -54,7 +54,7 @@ Make sure your StepFun API key is configured (e.g., via `STEP_API_KEY` environme
 
 ## API
 
-The extension uses the StepFun account endpoint: `GET https://api.stepfun.ai/v1/accounts/get`
+The extension uses the StepFun account endpoint: `GET https://api.stepfun.ai/v1/accounts`
 
 ## Development
 
