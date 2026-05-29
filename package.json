@@ -1,6 +1,6 @@
 {
   "name": "@alexanderfortin/pi-stepfun-usage",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Pi extension for monitoring StepFun API balance",
   "type": "module",
   "main": "./dist/index.js",
