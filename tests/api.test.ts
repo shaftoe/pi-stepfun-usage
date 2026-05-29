@@ -129,7 +129,7 @@ describe("getStepFunAccount", () => {
     const registry = mockModelRegistry("test-key")
     await getStepFunAccount(registry)
 
-    expect(calledUrl).toBe("https://api.stepfun.ai/v1/accounts/get")
+    expect(calledUrl).toBe("https://api.stepfun.ai/v1/accounts")
   })
 
   it("sends correct auth header", async () => {

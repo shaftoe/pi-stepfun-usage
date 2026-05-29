@@ -5,7 +5,7 @@
 
 import type { ModelRegistry } from "@earendil-works/pi-coding-agent"
 
-const STEPFUN_ACCOUNT_API_URL = "https://api.stepfun.ai/v1/accounts/get"
+const STEPFUN_ACCOUNT_API_URL = "https://api.stepfun.ai/v1/accounts"
 
 interface StepFunAccountResponse {
   object: "account"
