@@ -3,6 +3,7 @@
  * API interaction functions
  */
 
+import { buildAuthHeaders, safeFetch, safeParseJson } from "@alexanderfortin/pi-usage-lib"
 import type { ModelRegistry } from "@earendil-works/pi-coding-agent"
 
 const STEPFUN_ACCOUNT_API_URL = "https://api.stepfun.ai/v1/accounts"
@@ -28,24 +29,9 @@ export interface StepFunAccountData {
 export async function getStepFunAccount(
   modelRegistry: Pick<ModelRegistry, "getApiKeyForProvider">,
 ): Promise<StepFunAccountData> {
-  const apiKey = await modelRegistry.getApiKeyForProvider("stepfun")
-  if (!apiKey) {
-    throw new Error(
-      "Missing StepFun API credentials. Set STEP_API_KEY or configure the stepfun provider.",
-    )
-  }
-
-  const response = await fetch(STEPFUN_ACCOUNT_API_URL, {
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-    },
-  })
-
-  if (!response.ok) {
-    throw new Error(`API request failed with status ${response.status}`)
-  }
-
-  const data = (await response.json()) as StepFunAccountResponse
+  const headers = await buildAuthHeaders(modelRegistry, "stepfun")
+  const response = await safeFetch(STEPFUN_ACCOUNT_API_URL, { headers })
+  const data = await safeParseJson<StepFunAccountResponse>(response)
 
   return {
     type: data.type,
