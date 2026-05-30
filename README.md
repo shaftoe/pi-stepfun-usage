@@ -2,6 +2,8 @@
 
 A [Pi coding agent](https://pi.dev/) extension that monitors your [StepFun](https://platform.stepfun.ai/) API account balance and automatically displays it in the footer when using a StepFun provider.
 
+![screenshot](screenshot.png)
+
 ## Features
 
 - **Auto Footer Display**: Shows available account balance when using StepFun models

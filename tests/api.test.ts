@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it } from "bun:test"
+import { UsageError } from "@alexanderfortin/pi-usage-lib"
 import { getStepFunAccount } from "../src/api"
 
 function mockModelRegistry(apiKey: string | undefined) {
@@ -33,26 +34,54 @@ describe("getStepFunAccount", () => {
     globalThis.fetch = originalFetch
   })
 
-  it("throws on missing API key", async () => {
+  it("throws UsageError http401 on missing API key", async () => {
+    // Without an API key, buildAuthHeaders won't set Authorization,
+    // and the API returns 401
+    globalThis.fetch = createMockFetch(async () => mockResponse({ error: "unauthorized" }, 401))
     const registry = mockModelRegistry(undefined)
-    await expect(getStepFunAccount(registry)).rejects.toThrow("Missing StepFun API credentials")
+    try {
+      await getStepFunAccount(registry)
+      expect.unreachable("should have thrown")
+    } catch (e) {
+      expect(e).toBeInstanceOf(UsageError)
+      expect((e as UsageError).code).toBe("http401")
+    }
   })
 
-  it("throws on empty API key", async () => {
+  it("throws UsageError http401 on empty API key", async () => {
+    globalThis.fetch = createMockFetch(async () => mockResponse({ error: "unauthorized" }, 401))
     const registry = mockModelRegistry("")
-    await expect(getStepFunAccount(registry)).rejects.toThrow("Missing StepFun API credentials")
+    try {
+      await getStepFunAccount(registry)
+      expect.unreachable("should have thrown")
+    } catch (e) {
+      expect(e).toBeInstanceOf(UsageError)
+      expect((e as UsageError).code).toBe("http401")
+    }
   })
 
-  it("throws on 401 response", async () => {
+  it("throws UsageError http401 on 401 response", async () => {
     globalThis.fetch = createMockFetch(async () => mockResponse({ error: "unauthorized" }, 401))
     const registry = mockModelRegistry("test-key")
-    await expect(getStepFunAccount(registry)).rejects.toThrow("API request failed with status 401")
+    try {
+      await getStepFunAccount(registry)
+      expect.unreachable("should have thrown")
+    } catch (e) {
+      expect(e).toBeInstanceOf(UsageError)
+      expect((e as UsageError).code).toBe("http401")
+    }
   })
 
-  it("throws on 500 response", async () => {
+  it("throws UsageError http500 on 500 response", async () => {
     globalThis.fetch = createMockFetch(async () => mockResponse({ error: "internal" }, 500))
     const registry = mockModelRegistry("test-key")
-    await expect(getStepFunAccount(registry)).rejects.toThrow("API request failed with status 500")
+    try {
+      await getStepFunAccount(registry)
+      expect.unreachable("should have thrown")
+    } catch (e) {
+      expect(e).toBeInstanceOf(UsageError)
+      expect((e as UsageError).code).toBe("http500")
+    }
   })
 
   it("returns mapped camelCase data for valid prepaid response", async () => {
@@ -149,5 +178,25 @@ describe("getStepFunAccount", () => {
     await getStepFunAccount(registry)
 
     expect(authHeader).toBe("Bearer my-secret-key")
+  })
+
+  it("sends Accept-Encoding: identity header", async () => {
+    let encodingHeader = ""
+    globalThis.fetch = createMockFetch(async (_input, init) => {
+      const headers = init?.headers as Record<string, string>
+      encodingHeader = headers["Accept-Encoding"] ?? ""
+      return mockResponse({
+        object: "account",
+        type: "prepaid",
+        balance: 1,
+        total_cash_balance: 2,
+        total_voucher_balance: 3,
+      })
+    })
+
+    const registry = mockModelRegistry("test-key")
+    await getStepFunAccount(registry)
+
+    expect(encodingHeader).toBe("identity")
   })
 })
