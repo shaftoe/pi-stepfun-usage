@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@alexanderfortin/pi-usage-lib": "^0.0.4",
-    "@earendil-works/pi-coding-agent": "^0.79.3",
+    "@earendil-works/pi-coding-agent": "*",
     "temporal-polyfill": "^0.3.2"
   },
   "devDependencies": {
@@ -43,7 +43,7 @@
     "typescript": "^6.0.3"
   },
   "peerDependencies": {
-    "@earendil-works/pi-tui": "^0.79.3"
+    "@earendil-works/pi-tui": "*"
   },
   "publishConfig": {
     "access": "public"
