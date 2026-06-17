@@ -5,7 +5,7 @@
     "": {
       "name": "@alexanderfortin/pi-stepfun-usage",
       "dependencies": {
-        "@alexanderfortin/pi-usage-lib": "^0.0.5",
+        "@alexanderfortin/pi-usage-lib": "^0.0.7",
         "@earendil-works/pi-coding-agent": "*",
         "temporal-polyfill": "^0.3.2",
       },
@@ -35,7 +35,7 @@
 
     "@actions/io": ["@actions/io@3.0.2", "", {}, "sha512-nRBchcMM+QK1pdjO7/idu86rbJI5YHUKCvKs0KxnSYbVe3F51UfGxuZX4Qy/fWlp6l7gWFwIkrOzN+oUK03kfw=="],
 
-    "@alexanderfortin/pi-usage-lib": ["@alexanderfortin/pi-usage-lib@0.0.5", "", { "dependencies": { "@earendil-works/pi-coding-agent": "^0.79.4", "temporal-polyfill": "^0.3.2" }, "peerDependencies": { "@earendil-works/pi-tui": "^0.79.4" } }, "sha512-Bjtnvr9g+IgdWrdmLpjwacYy484aKCSbQDbEUs8s0nB7UYqQpD7iacRVcSvYB30vVTRfioTOUDvRu7qsSE1IFg=="],
+    "@alexanderfortin/pi-usage-lib": ["@alexanderfortin/pi-usage-lib@0.0.7", "", { "dependencies": { "temporal-polyfill": "^0.3.2" }, "peerDependencies": { "@earendil-works/pi-coding-agent": "^0.79.6", "@earendil-works/pi-tui": "^0.79.6" } }, "sha512-OTWc3Y46kD9BUm8D3Prc9xo2Hby8ozv6yjEkgbbay+cVSxUm4ll1ARKcbKYENXRdm3TejXR23G30aJIofxN+bA=="],
 
     "@alexanderfortin/semantic-release-keep-a-changelog": ["@alexanderfortin/semantic-release-keep-a-changelog@0.4.2", "", { "dependencies": { "@semantic-release/error": "^4.0.0", "conventional-changelog-writer": "8.4.0", "conventional-commits-filter": "^5.0.0", "conventional-commits-parser": "6.4.0", "get-stream": "9.0.1", "into-stream": "^9.1.0", "temporal-polyfill": "^0.3.2" }, "peerDependencies": { "semantic-release": ">=24.0.0" } }, "sha512-OvzCfsLXOiPZRsPUbTL3zj4QKdKCYtrN8/YNC+9rana5+vdKDI2BHK5KhzdGr5f8hNbRE7RN2xzk5p9MsJR0iA=="],
 
